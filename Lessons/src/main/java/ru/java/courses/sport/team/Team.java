@@ -3,29 +3,31 @@ package ru.java.courses.sport.team;
 import ru.java.courses.sport.Coach;
 import ru.java.courses.sport.ScoringPlayer;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Team<T extends ScoringPlayer> {
-    private String Name;
-    private List<T> players;
+    private String name;
+    private List<T> players = new ArrayList<T>();
     private Coach coach;
 
     public Team(String name) {
         if (name == null || name.isEmpty()) {
             throw new IllegalArgumentException("Не указано имя");
         }
-        Name = name;
+
+        this.name = name;
     }
 
     public String getName() {
-        return Name;
+        return name;
     }
 
     public void setName(String name) {
         if (name == null || name.isEmpty()) {
             throw new IllegalArgumentException("Не указано имя");
         }
-        this.Name = name;
+        this.name = name;
     }
 
     public List<T> getPlayers() {
@@ -44,12 +46,16 @@ public abstract class Team<T extends ScoringPlayer> {
         this.coach = coach;
     }
 
-    public int getPlayersCount() { //метод количество игроков (пункт 11)
+    public int getPlayersCount() {
         return players.size();
     }
 
     public void addPlayer(T player) {
-        players.add(player);
+        if (getPlayersCount() < getMaxPlayersCount()) {
+            players.add(player);
+        } else {
+            throw new IllegalArgumentException("Достигнуто максимальное оличество игроков");
+        }
     }
 
     public void addPlayers(T... players) {
@@ -62,11 +68,14 @@ public abstract class Team<T extends ScoringPlayer> {
         players.remove(player);
     }
 
-    public int getScore() {////////////////////////////////////////////////?
+    public int getScore() {
         int res = 0;
-        for (int i = 0; i == getPlayersCount() - 1; i++) {
+        for (int i = 0; i < getPlayersCount(); i++) {
             res += players.get(i).getGoals();
         }
         return res;
     }
+
+
+    public abstract int getMaxPlayersCount();
 }
