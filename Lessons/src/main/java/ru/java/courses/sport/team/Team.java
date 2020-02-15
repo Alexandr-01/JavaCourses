@@ -15,7 +15,6 @@ public abstract class Team<T extends ScoringPlayer> {
         if (name == null || name.isEmpty()) {
             throw new IllegalArgumentException("Не указано имя");
         }
-
         this.name = name;
     }
 
@@ -35,7 +34,11 @@ public abstract class Team<T extends ScoringPlayer> {
     }
 
     public void setPlayers(List<T> players) {
-        this.players = players;
+        if (players.size() <= getMaxPlayersCount()) {
+            this.players = players;
+        } else {
+            throw new IllegalArgumentException("Превышение максимального количества игроков");
+        }
     }
 
     public Coach getCoach() {
@@ -54,7 +57,7 @@ public abstract class Team<T extends ScoringPlayer> {
         if (getPlayersCount() < getMaxPlayersCount()) {
             players.add(player);
         } else {
-            throw new IllegalArgumentException("Достигнуто максимальное оличество игроков");
+            throw new IllegalArgumentException("Достигнуто максимальное количество игроков");
         }
     }
 
