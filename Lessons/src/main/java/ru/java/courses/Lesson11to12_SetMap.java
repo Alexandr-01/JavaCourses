@@ -98,10 +98,24 @@ public class Lesson11to12_SetMap {
      * Нумерация полок начинается с единицы!
      */
     public static Map task3(Collection<String> source) {
-        // свой код нужно писать тут
-        // следующую строку можно удалять
-
-        return null;
+        final int SHELVES_NUMBER = 5;
+        List<String> sortSource = new ArrayList<>(source);
+        Collections.sort(sortSource);
+        HashMap<Integer, ArrayList<String>> res = new HashMap<>();
+        int booksOnShelve = sortSource.size() / SHELVES_NUMBER;
+        int balanceBook = sortSource.size() % SHELVES_NUMBER;
+        int currentBook = 0;
+        for (int i = 1; i <= SHELVES_NUMBER; i++) {
+            if (balanceBook != 0) {
+                res.put(i, new ArrayList<>(sortSource.subList(currentBook, currentBook + booksOnShelve + 1)));
+                currentBook += booksOnShelve + 1;
+                balanceBook--;
+            } else {
+                res.put(i, new ArrayList<>(sortSource.subList(currentBook, currentBook + booksOnShelve)));
+                currentBook += booksOnShelve;
+            }
+        }
+        return res;
     }
 
 
