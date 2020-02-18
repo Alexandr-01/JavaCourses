@@ -20,7 +20,7 @@ public class Lesson10_CollectionsLists {
      */
     public static List<String> task1(List<Integer> source) {
         Set<Integer> res = new TreeSet<>(source);
-        List<String> resStr = new ArrayList<String>();
+        List<String> resStr = new ArrayList<>();
         for (Integer k : res) {
             resStr.add(k.toString());
         }
@@ -37,7 +37,7 @@ public class Lesson10_CollectionsLists {
      * Подсказка: на входе может быть любое количество чисел
      */
     public static List<Integer> task2(Integer... array) {
-        List<Integer> res = new ArrayList<Integer>();
+        List<Integer> res = new ArrayList<>();
         if (array.length >= 4) {
             for (int i = 3; i < Math.min(array.length, 8); i++) {
                 res.add(array[i] % 2 == 0 ? ++array[i] : array[i]);
